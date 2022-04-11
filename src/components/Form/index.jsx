@@ -26,10 +26,10 @@ const StyledError = styled.div`
   margin: 0 0 40px 0;
 `;
 
-const Form = ({ children, submitButtonLabel, handleSubmit, errorMessage }) => {
+const Form = ({ children, submitButtonLabel, onSubmit, errorMessage }) => {
   return (
     <StyledFormWrapper>
-      <StyledForm onSubmit={handleSubmit}>
+      <StyledForm onSubmit={onSubmit}>
         {children}
         <Button type='submit'>{submitButtonLabel} </Button>
         {errorMessage && <StyledError />}

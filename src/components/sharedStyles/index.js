@@ -6,7 +6,7 @@ export const formControlSharedStyles = css`
   border-radius: 5px;
   border: 1px solid #ddd;
   margin: 10px 0 20px 0;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
 `;
 

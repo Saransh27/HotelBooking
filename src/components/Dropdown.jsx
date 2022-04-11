@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
 
 const Select = styled.select`
   width: 400px;
-  ${formControlSharedStyles}}
+  ${formControlSharedStyles}
   option {
     color: black;
     white-space: pre;
@@ -25,9 +25,11 @@ const Dropdown = ({ id, label, value, options, onChange }) => {
   return (
     <StyledDiv>
       <Label label={label} />
-      <Select id={id} value={value} onChange={onChange}>
-        {options.map((option) => (
-          <option value={option.value}>{option.label}</option>
+      <Select id={id} name={id} value={value} onChange={onChange}>
+        {options.map((op) => (
+          <option key={op.value} value={op.value}>
+            {op.label}
+          </option>
         ))}
       </Select>
     </StyledDiv>
