@@ -1,10 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { generateBookingKey } from '../helpers';
 
-export const getRooms = createSelector(
-  (state) => state.rooms,
-  (rooms) => {
-    return [{ label: 'Select a Room', value: '' }].concat(
-      rooms.map((room) => ({ label: room, value: room }))
-    );
-  }
-);
+const getHotelRooms = (state) => state.rooms.rooms;
+export const getBookings = (state) => state.booking.booking;
+
+export const getRooms = createSelector(getHotelRooms, (rooms) => {
+  return [{ label: 'Select a Room', value: '' }].concat(
+    rooms.map((room) => ({ label: room, value: room }))
+  );
+});

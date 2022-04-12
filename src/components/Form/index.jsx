@@ -1,7 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 import Button from '../Button';
+
+const SuccessIcon = styled(FaCheckCircle)`
+  display: inline-block;
+  color: green;
+  transform: scale(2);
+  margin-left: 85px;
+`;
+
+const FailureIcon = styled(FaTimesCircle)`
+  display: inline-block;
+  color: red;
+  transform: scale(2);
+  margin-left: 85px;
+`;
 
 const StyledFormWrapper = styled.div`
   display: flex;
@@ -26,12 +41,21 @@ const StyledError = styled.div`
   margin: 0 0 40px 0;
 `;
 
-const Form = ({ children, submitButtonLabel, onSubmit, errorMessage }) => {
+const Form = ({
+  children,
+  submitButtonLabel,
+  onSubmit,
+  errorMessage,
+  showSuccessIcon,
+  showFailureIcon,
+}) => {
   return (
     <StyledFormWrapper>
       <StyledForm onSubmit={onSubmit}>
         {children}
         <Button type='submit'>{submitButtonLabel} </Button>
+        {showSuccessIcon && <SuccessIcon></SuccessIcon>}
+        {showFailureIcon && <FailureIcon></FailureIcon>}
         {errorMessage && <StyledError />}
       </StyledForm>
     </StyledFormWrapper>

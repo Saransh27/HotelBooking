@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import bookingSlice from '../reducers/booking';
+import roomSlice from '../reducers/rooms';
 
 const store = configureStore({
-  reducer: bookingSlice.reducer,
+  reducer: { booking: bookingSlice.reducer, rooms: roomSlice.reducer },
 });
 
-export const bookingActions = bookingSlice.actions;
 export default store;

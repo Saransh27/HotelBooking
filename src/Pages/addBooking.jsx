@@ -6,7 +6,8 @@ import { getRooms } from '../selectors';
 import Form from '../components/Form';
 import FormInput from '../components/Input';
 import Dropdown from '../components/Dropdown';
-import { bookingActions } from '../store';
+import { bookingActions } from '../reducers/booking';
+import { fetchRoomsData } from '../thunks';
 
 const initalState = {
   surname: '',
@@ -21,7 +22,8 @@ const AddBooking = () => {
 
   useEffect(() => {
     document.title = 'Add Booking';
-  });
+    dispatch(fetchRoomsData());
+  }, [dispatch]);
 
   const onSurnameChange = (e) => {
     const value = e.currentTarget.value;
@@ -40,11 +42,19 @@ const AddBooking = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(bookingActions.addBooking(state));
-    alert(
-      `Room No: ${state.room} Booking successfully done on the name of ${state.surname}`
-    );
-    setState(initalState);
+    if (state.room && state.surname) {
+      dispatch(bookingActions.addBooking(state));
+      alert(
+        `Room no: ${state.room} booked successfully on the name of ${state.surname}`
+      );
+      setState(initalState);
+    } else {
+      if (!state.surname) {
+        alert('Please enter a surname for booking');
+      } else {
+        alert('Please select a room before booking');
+      }
+    }
   };
 
   return (

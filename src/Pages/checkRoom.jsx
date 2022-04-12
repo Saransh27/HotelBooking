@@ -1,23 +1,36 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import Form from '../components/Form';
 import FormInput from '../components/Input';
 import Dropdown from '../components/Dropdown';
-import { getRooms } from '../selectors';
+import { getRooms, getBookings } from '../selectors';
+import { fetchRoomsData } from '../thunks';
+import { generateBookingKey } from '../helpers';
 
 const initalState = {
   room: '',
   bookingDate: moment().format('YYYY-MM-DD'),
 };
 
+const checkRoomAvailability = (bookings, { room, bookingDate }) => {
+  const key = generateBookingKey({ room, bookingDate });
+  return !Boolean(bookings[key]);
+};
+
 const CheckBooking = () => {
   const [state, setState] = useState(initalState);
+  const [showSuccessIcon, setShowSuccessIcon] = useState(false);
+  const [showFailureIcon, setShowFailureIcon] = useState(false);
+  const dispatch = useDispatch();
   const rooms = useSelector(getRooms);
+  const bookings = useSelector(getBookings);
+
   useEffect(() => {
-    document.title = 'Check Room';
-  });
+    document.title = 'Add Booking';
+    dispatch(fetchRoomsData());
+  }, [dispatch]);
 
   const onRoomSelection = useCallback((e) => {
     const value = e.currentTarget.value;
@@ -31,12 +44,20 @@ const CheckBooking = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const isRoomAvailable = checkRoomAvailability(bookings, state);
+    setShowSuccessIcon(isRoomAvailable);
+    setShowFailureIcon(!isRoomAvailable);
   };
 
   return (
     <div>
       <h1>Check Room</h1>
-      <Form submitButtonLabel='Check' onSubmit={onSubmit}>
+      <Form
+        submitButtonLabel='Check'
+        onSubmit={onSubmit}
+        showSuccessIcon={showSuccessIcon}
+        showFailureIcon={showFailureIcon}
+      >
         <Dropdown
           data-test-id={'checkRoomDropdown'}
           label='Room'
@@ -45,11 +66,11 @@ const CheckBooking = () => {
           onChange={onRoomSelection}
         />
         <FormInput
-          data-test-id={'checkRoomDate'}
+          data-test-id={'checkRoomBookingDate'}
           min={moment().add(-1).format('YYYY-MM-DD')}
           label='Booking Date'
           type='date'
-          value={state.name}
+          value={state.bookingDate}
           onChange={onBookingDate}
         />
       </Form>

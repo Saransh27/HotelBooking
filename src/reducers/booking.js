@@ -1,18 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-const initialState = {
-  rooms: ['101', '102', '103', '104', '201', '202', '203', '204'],
-  booking: [],
-};
+import { generateBookingKey } from '../helpers';
 
 const bookingSlice = createSlice({
   name: 'booking',
-  initialState,
+  initialState: { booking: {} },
   reducers: {
     addBooking(state, action) {
-      state.booking = state.booking.concat(action.payload);
+      const key = generateBookingKey(action.payload);
+      state.booking[key] = action.payload;
     },
   },
 });
 
+export const bookingActions = bookingSlice.actions;
 export default bookingSlice;
