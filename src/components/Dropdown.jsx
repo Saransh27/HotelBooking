@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { formControlSharedStyles } from './sharedStyles';
+import { formControlSharedStyles } from '../styles/sharedStyles';
 import Label from './Label';
 
 const StyledDiv = styled.div`
@@ -21,11 +21,11 @@ const Select = styled.select`
   }
 `;
 
-const Dropdown = ({ id, label, value, options, onChange }) => {
+const Dropdown = ({ id, label, value, options, onChange, ...rest }) => {
   return (
     <StyledDiv>
       <Label label={label} />
-      <Select id={id} name={id} value={value} onChange={onChange}>
+      <Select id={id} name={id} value={value} onChange={onChange} {...rest}>
         {options.map((op) => (
           <option key={op.value} value={op.value}>
             {op.label}

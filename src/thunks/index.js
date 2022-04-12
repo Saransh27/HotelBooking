@@ -7,7 +7,6 @@ export const fetchRoomsData = () => {
     if (!roomsList || roomsList.length === 1) {
       const fetchData = async () => {
         const response = await fetch('./roomsData.json');
-
         if (!response.ok) {
           throw new Error('Could not fetch rooms list!');
         }

@@ -17,10 +17,10 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <>
+    <div data-testid='root-app'>
       <GlobalStyle />
       <Pages />
-    </>
+    </div>
   );
 }
 export default App;

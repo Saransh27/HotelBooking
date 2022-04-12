@@ -62,18 +62,20 @@ const AddBooking = () => {
       <h1>Add Booking</h1>
       <Form submitButtonLabel='Add' onSubmit={onSubmit}>
         <FormInput
+          data-testid='addbooking-surname-input'
           label='Surname'
           value={state.surname}
           onChange={onSurnameChange}
         />
         <Dropdown
-          id={'booking-room-selection'}
+          data-testid='addbooking-dropdown'
           label='Room'
           options={rooms}
           value={state.room}
           onChange={onRoomSelection}
         />
         <FormInput
+          data-testid='addbooking-date-input'
           label='Booking Date'
           type='date'
           min={moment().add(-1).format('YYYY-MM-DD')}

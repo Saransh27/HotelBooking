@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { string } from 'prop-types';
 
-import { formControlSharedStyles } from './sharedStyles';
+import { formControlSharedStyles } from '../styles/sharedStyles';
 import Label from './Label';
 
 const StyledDiv = styled.div`
