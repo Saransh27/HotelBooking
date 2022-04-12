@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './home';
 import AddBooking from './addBooking';
 import CheckRoom from './checkRoom';
-import Layout from '../components/Layout';
+import Layout from '../components/Layout/Layout';
 
 const Webpages = () => {
   return (
@@ -17,4 +17,5 @@ const Webpages = () => {
     </Router>
   );
 };
+
 export default Webpages;

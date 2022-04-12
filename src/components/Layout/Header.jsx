@@ -1,4 +1,4 @@
-import logo from '../images/hote_logo.png';
+import logo from '../../images/hote_logo.png';
 import styled from 'styled-components';
 
 const HeaderBar = styled.header`

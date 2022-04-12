@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   display: inline-block;
-  margin-left: 39px;
+  margin-left: 187px;
   background-color: #f7797d;
   color: #fff;
   font-size: 0.9rem;

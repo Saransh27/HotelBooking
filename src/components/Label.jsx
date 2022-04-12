@@ -1,5 +1,5 @@
 const formLabel = ({ label }) => (
-  <label htmlFor={label} style={{ minWidth: '100px' }}>
+  <label htmlFor={label} style={{ minWidth: '120px' }}>
     <h3>{label}</h3>
   </label>
 );

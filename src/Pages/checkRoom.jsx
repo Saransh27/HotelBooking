@@ -44,6 +44,10 @@ const CheckBooking = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (!state.room) {
+      alert('Please select a room');
+      return;
+    }
     const isRoomAvailable = checkRoomAvailability(bookings, state);
     setShowSuccessIcon(isRoomAvailable);
     setShowFailureIcon(!isRoomAvailable);
