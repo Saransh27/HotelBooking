@@ -23,3 +23,17 @@ export const renderWithState = (
     store,
   };
 };
+
+export const mockSuccesfulResponse = ({ status = 200, returnBody } = {}) => {
+  global.fetch = jest.fn().mockImplementationOnce(() => {
+    return new Promise((resolve) => {
+      resolve({
+        ok: true,
+        status,
+        json: () => {
+          return returnBody ? returnBody : {};
+        },
+      });
+    });
+  });
+};

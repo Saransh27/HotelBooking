@@ -53,9 +53,15 @@ const Form = ({
     <StyledFormWrapper>
       <StyledForm onSubmit={onSubmit}>
         {children}
-        <Button type='submit'>{submitButtonLabel} </Button>
-        {showSuccessIcon && <SuccessIcon></SuccessIcon>}
-        {showFailureIcon && <FailureIcon></FailureIcon>}
+        <Button type='submit' data-testid='ihs-booking-form-submit-btn'>
+          {submitButtonLabel}
+        </Button>
+        {showSuccessIcon && (
+          <SuccessIcon data-testid='ihs-booking-form-success-icon'></SuccessIcon>
+        )}
+        {showFailureIcon && (
+          <FailureIcon data-testid='ihs-booking-form-failure-icon'></FailureIcon>
+        )}
         {errorMessage && <StyledError />}
       </StyledForm>
     </StyledFormWrapper>

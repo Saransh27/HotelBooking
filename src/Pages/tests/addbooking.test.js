@@ -1,27 +1,9 @@
-import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { renderWithState } from '../../test';
+import { renderWithState, mockSuccesfulResponse } from '../../test/helper';
 import AddBooking from '../addBooking';
-
-const mockSuccesfulResponse = ({
-  status = 200,
-  method = 'GET',
-  returnBody,
-} = {}) => {
-  global.fetch = jest.fn().mockImplementationOnce(() => {
-    return new Promise((resolve) => {
-      resolve({
-        ok: true,
-        status,
-        json: () => {
-          return returnBody ? returnBody : {};
-        },
-      });
-    });
-  });
-};
+import { getBookings } from '../../selectors';
 
 describe('Add Booking View', () => {
   const ADDBOOKING_SURNAME_INPUT_TEST_ID = 'addbooking-surname-input';
@@ -33,7 +15,7 @@ describe('Add Booking View', () => {
     renderWithState(<AddBooking />);
 
     //labels in form
-    expect(screen.getByText('Surname')).toBeInTheDocument();
+    expect(await screen.findByText('Surname')).toBeInTheDocument();
     expect(screen.getByText('Room')).toBeInTheDocument();
     expect(screen.getByText('Booking Date')).toBeInTheDocument();
 
@@ -47,5 +29,39 @@ describe('Add Booking View', () => {
     expect(
       screen.getByTestId(ADDBOOKING_BOOKING_DATE_TEST_ID)
     ).toBeInTheDocument();
+
+    expect(screen.getByRole('option', { name: 'Select a Room' }).selected).toBe(
+      true
+    );
+  });
+
+  test('should book a room on submit click', async () => {
+    mockSuccesfulResponse({ returnBody: { data: ['101', '102'] } });
+    const { store } = renderWithState(<AddBooking />);
+    expect((await screen.findAllByRole('option')).length).toBe(3);
+
+    // add surname
+    userEvent.type(
+      screen.getByTestId(ADDBOOKING_SURNAME_INPUT_TEST_ID),
+      'saransh'
+    );
+
+    // choose room number
+    userEvent.selectOptions(
+      // Find the select element, like a real user would.
+      screen.getByRole('combobox'),
+      // Find and select the '102' room option, like a real user would.
+      screen.getByRole('option', { name: '102' })
+    );
+
+    expect(screen.getByRole('option', { name: '102' }).selected).toBe(true);
+    userEvent.click(screen.getByTestId('ihs-booking-form-submit-btn'));
+    expect(getBookings(store.getState())).toEqual({
+      '102-20220413': {
+        surname: 'saransh',
+        room: '102',
+        bookingDate: '2022-04-13',
+      },
+    });
   });
 });

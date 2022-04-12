@@ -60,29 +60,33 @@ const AddBooking = () => {
   return (
     <div>
       <h1>Add Booking</h1>
-      <Form submitButtonLabel='Add' onSubmit={onSubmit}>
-        <FormInput
-          data-testid='addbooking-surname-input'
-          label='Surname'
-          value={state.surname}
-          onChange={onSurnameChange}
-        />
-        <Dropdown
-          data-testid='addbooking-dropdown'
-          label='Room'
-          options={rooms}
-          value={state.room}
-          onChange={onRoomSelection}
-        />
-        <FormInput
-          data-testid='addbooking-date-input'
-          label='Booking Date'
-          type='date'
-          min={moment().add(-1).format('YYYY-MM-DD')}
-          value={state.bookingDate}
-          onChange={onBookingDate}
-        />
-      </Form>
+      {rooms.length > 1 ? (
+        <Form submitButtonLabel='Add' onSubmit={onSubmit}>
+          <FormInput
+            data-testid='addbooking-surname-input'
+            label='Surname'
+            value={state.surname}
+            onChange={onSurnameChange}
+          />
+          <Dropdown
+            data-testid='addbooking-dropdown'
+            label='Room'
+            options={rooms}
+            value={state.room}
+            onChange={onRoomSelection}
+          />
+          <FormInput
+            data-testid='addbooking-date-input'
+            label='Booking Date'
+            type='date'
+            min={moment().add(-1).format('YYYY-MM-DD')}
+            value={state.bookingDate}
+            onChange={onBookingDate}
+          />
+        </Form>
+      ) : (
+        'Loading......'
+      )}
     </div>
   );
 };
