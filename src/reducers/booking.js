@@ -3,11 +3,11 @@ import { generateBookingKey } from '../helpers';
 
 const bookingSlice = createSlice({
   name: 'booking',
-  initialState: { booking: {} },
+  initialState: {},
   reducers: {
     addBooking(state, action) {
       const key = generateBookingKey(action.payload);
-      state.booking[key] = action.payload;
+      state[key] = action.payload;
     },
   },
 });

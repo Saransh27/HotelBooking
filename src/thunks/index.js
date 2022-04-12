@@ -4,7 +4,7 @@ import { getRooms } from '../selectors';
 export const fetchRoomsData = () => {
   return async (dispatch, getState) => {
     const roomsList = getRooms(getState());
-    if (!roomsList || roomsList.length === 1) {
+    if (roomsList.length <= 1) {
       const fetchData = async () => {
         const response = await fetch('./roomsData.json');
         if (!response.ok) {
@@ -17,7 +17,7 @@ export const fetchRoomsData = () => {
       };
       try {
         const roomsList = await fetchData();
-        dispatch(roomActions.addRooms(roomsList));
+        dispatch(roomActions.initializeRooms(roomsList));
       } catch (error) {
         // show some error notification
       }

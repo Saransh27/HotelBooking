@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const roomSlice = createSlice({
   name: 'rooms',
-  initialState: { rooms: [] },
+  initialState: { totalRooms: [] },
   reducers: {
-    addRooms(state, action) {
-      state.rooms = action.payload;
+    initializeRooms(state, action) {
+      state.totalRooms = action.payload;
     },
   },
 });
